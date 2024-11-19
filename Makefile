@@ -46,13 +46,13 @@ deliver-demo-release-tvos: install-tools
 	@echo "... done.\n"
 
 .PHONY: test-streams-start
-test-streams-start:
+test-streams-start: install-tools
 	@echo "Starting test streams"
 	@Scripts/test-streams.sh -s
 	@echo "... done.\n"
 
 .PHONY: test-streams-stop
-test-streams-stop:
+test-streams-stop: install-tools
 	@echo "Stopping test streams"
 	@Scripts/test-streams.sh -k
 	@echo "... done.\n"
