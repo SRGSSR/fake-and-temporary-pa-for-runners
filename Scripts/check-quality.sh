@@ -3,7 +3,7 @@
 set -e
 
 eval "$(pkgx --shellcode)"
-env +swiftlint +shellcheck +markdownlint +yamllint
+env +swiftlint +rubocop +shellcheck +markdownlint +yamllint
 
 echo "... checking Swift code..."
 if [ $# -eq 0 ]; then
@@ -12,8 +12,7 @@ elif [[ "$1" == "only-changes" ]]; then
   git diff --staged --name-only | grep ".swift$" | xargs swiftlint lint --quiet --strict
 fi
 echo "... checking Ruby scripts..."
-echo "... UNCOMMENT ..."
-#rubocop --format quiet
+rubocop --format quiet
 echo "... checking Shell scripts..."
 shellcheck Scripts/*.sh hooks/* Artifacts/**/*.sh
 echo "... checking Markdown documentation..."
