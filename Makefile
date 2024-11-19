@@ -61,7 +61,7 @@ test-streams-stop: install-tools
 test-ios: install-tools
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
-	@bundle exec fastlane test_ios
+	@pkgx +xcodes fastlane test_ios
 	@Scripts/test-streams.sh -k
 	@echo "... done.\n"
 
@@ -69,7 +69,7 @@ test-ios: install-tools
 test-tvos: install-tools
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
-	@bundle exec fastlane test_tvos
+	@pkgx fastlane test_tvos
 	@Scripts/test-streams.sh -k
 	@echo "... done.\n"
 
