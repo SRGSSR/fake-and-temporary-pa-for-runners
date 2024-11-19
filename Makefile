@@ -11,7 +11,7 @@ install-tools:
 
 .PHONY: fastlane
 fastlane: install-tools
-	@bundle exec fastlane
+	@pkgx fastlane
 
 .PHONY: archive-demo-ios
 archive-demo-ios: install-tools
