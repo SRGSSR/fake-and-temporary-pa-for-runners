@@ -1,50 +1,46 @@
 #!/usr/bin/xcrun make -f
 
-CONFIGURATION_REPOSITORY_URL=https://github.com/SRGSSR/pillarbox-apple-configuration.git
-CONFIGURATION_COMMIT_SHA1=dad52a4242c7997c179073caec03b8d6e718fc03
-
 .PHONY: all
 all: help
 
-.PHONY: setup
-setup:
-	@echo "Setting up the project..."
-	@bundle install > /dev/null
-	@Scripts/checkout-configuration.sh "${CONFIGURATION_REPOSITORY_URL}" "${CONFIGURATION_COMMIT_SHA1}" Configuration
+.PHONY: install-tools
+install-tools:
+	@echo "Installing tools..."
+	@curl -Ssf https://pkgx.sh | sh &> /dev/null
 	@echo "... done.\n"
 
 .PHONY: fastlane
-fastlane: setup
+fastlane: install-tools
 	@bundle exec fastlane
 
 .PHONY: archive-demo-ios
-archive-demo-ios: setup
+archive-demo-ios: install-tools
 	@bundle exec fastlane archive_demo_ios
 
 .PHONY: archive-demo-tvos
-archive-demo-tvos: setup
+archive-demo-tvos: install-tools
 	@bundle exec fastlane archive_demo_tvos
 
 .PHONY: deliver-demo-nightly-ios
-deliver-demo-nightly-ios: setup
+deliver-demo-nightly-ios: install-tools
 	@echo "Delivering demo nightly build for iOS..."
 	@bundle exec fastlane deliver_demo_nightly_ios
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-nightly-tvos
-deliver-demo-nightly-tvos: setup
+deliver-demo-nightly-tvos: install-tools
 	@echo "Delivering demo nightly build for tvOS..."
 	@bundle exec fastlane deliver_demo_nightly_tvos
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-release-ios
-deliver-demo-release-ios: setup
+deliver-demo-release-ios: install-tools
 	@echo "Delivering demo release build for iOS..."
 	@bundle exec fastlane deliver_demo_release_ios
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-release-tvos
-deliver-demo-release-tvos: setup
+deliver-demo-release-tvos: install-tools
 	@echo "Delivering demo release build for tvOS..."
 	@bundle exec fastlane deliver_demo_release_tvos
 	@echo "... done.\n"
@@ -62,7 +58,7 @@ test-streams-stop:
 	@echo "... done.\n"
 
 .PHONY: test-ios
-test-ios: setup
+test-ios: install-tools
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
 	@bundle exec fastlane test_ios
@@ -70,7 +66,7 @@ test-ios: setup
 	@echo "... done.\n"
 
 .PHONY: test-tvos
-test-tvos: setup
+test-tvos: install-tools
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
 	@bundle exec fastlane test_tvos
@@ -78,13 +74,13 @@ test-tvos: setup
 	@echo "... done.\n"
 
 .PHONY: check-quality
-check-quality: setup
+check-quality: install-tools
 	@echo "Checking quality..."
 	@Scripts/check-quality.sh
 	@echo "... done.\n"
 
 .PHONY: fix-quality
-fix-quality: setup
+fix-quality: install-tools
 	@echo "Fixing quality..."
 	@Scripts/fix-quality.sh
 	@echo "... done.\n"
@@ -131,7 +127,7 @@ find-dead-code:
 	@echo "... done.\n"
 
 .PHONY: doc
-doc: setup
+doc: install-tools
 	@echo "Generating documentation sets..."
 	@bundle exec fastlane doc
 	@echo "... done.\n"
@@ -141,7 +137,7 @@ help:
 	@echo "The following targets are available:"
 	@echo ""
 	@echo "   all                                Default target"
-	@echo "   setup                              Setup project"
+	@echo "   install-tools                      Install required tools"
 	@echo ""
 	@echo "   fastlane                           Run fastlane"
 	@echo ""
