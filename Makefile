@@ -15,11 +15,11 @@ fastlane: install-tools
 
 .PHONY: archive-demo-ios
 archive-demo-ios: install-tools
-	@bundle exec fastlane archive_demo_ios
+	@pkgx fastlane archive_demo_ios
 
 .PHONY: archive-demo-tvos
 archive-demo-tvos: install-tools
-	@bundle exec fastlane archive_demo_tvos
+	@pkgx fastlane archive_demo_tvos
 
 .PHONY: deliver-demo-nightly-ios
 deliver-demo-nightly-ios: install-tools
