@@ -55,5 +55,11 @@ jobs:
           Scripts/add-apple-certificate.sh \
           ${{ secrets.SRGSSR_APPLE_DEV_CERTIFICATE_B64 }}
 
+      - name: Configure environment
+        run: |
+          Scripts/configure-environment.sh \
+          ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
+          ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
+
       - name: Archive the demo
-        run: sleep 3600 #make archive-demo-${{ matrix.platform }}
+        run: make archive-demo-${{ matrix.platform }}
