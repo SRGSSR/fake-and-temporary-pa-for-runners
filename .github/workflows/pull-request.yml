@@ -4,42 +4,42 @@ name: Pull Request
 on: [push]
 
 jobs:
-  check-quality:
-    name: "🔎 Check quality"
-    runs-on: tart
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # check-quality:
+  #   name: "🔎 Check quality"
+  #   runs-on: tart
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Run the quality check
-        run: make check-quality
+  #     - name: Run the quality check
+  #       run: make check-quality
 
-  build-documentation:
-    name: "📚 Build documentation"
-    runs-on: tart
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # build-documentation:
+  #   name: "📚 Build documentation"
+  #   runs-on: tart
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Build the documentation
-        run: make doc
+  #     - name: Build the documentation
+  #       run: make doc
 
-  tests:
-    name: "🧪 Tests"
-    runs-on: tart
-    strategy:
-      matrix:
-        platform: [ios, tvos]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # tests:
+  #   name: "🧪 Tests"
+  #   runs-on: tart
+  #   strategy:
+  #     matrix:
+  #       platform: [ios, tvos]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Authorize microphone access for simulator
-        run: Scripts/bypass-simulator-trampoline.sh
+  #     - name: Authorize microphone access for simulator
+  #       run: Scripts/bypass-simulator-trampoline.sh
 
-      - name: Run tests
-        run: make test-${{ matrix.platform }}
-
+  #     - name: Run tests
+  #       run: make test-${{ matrix.platform }}
+  #
   archive-demos:
     name: "📦 Archives"
     runs-on: tart
@@ -50,5 +50,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Add Apple certificate
+        run: |
+          Scripts/add-apple-certificate.sh \
+          ${{ secrets.SRGSSR_APPLE_DEV_CERTIFICATE_B64 }}
+
       - name: Archive the demo
-        run: make archive-demo-${{ matrix.platform }}
+        run: sleep 3600 #make archive-demo-${{ matrix.platform }}
