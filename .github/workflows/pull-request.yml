@@ -62,4 +62,6 @@ jobs:
           ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
 
       - name: Archive the demo
-        run: make archive-demo-${{ matrix.platform }}
+        run: |
+          gem cleanup
+          make archive-demo-${{ matrix.platform }}
