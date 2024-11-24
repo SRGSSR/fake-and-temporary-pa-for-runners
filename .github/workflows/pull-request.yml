@@ -63,5 +63,4 @@ jobs:
 
       - name: Archive the demo
         run: |
-          gem cleanup
           make archive-demo-${{ matrix.platform }}
