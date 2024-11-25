@@ -223,6 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fastlane
   fastlane-plugin-badge
   fastlane-plugin-xcconfig
 

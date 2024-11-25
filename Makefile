@@ -3,62 +3,69 @@
 .PHONY: all
 all: help
 
-.PHONY: install-tools
-install-tools:
-	@echo "Installing tools..."
+.PHONY: install-pkgx
+install-pkgx:
+	@echo "Installing pkgx..."
 	@curl -Ssf https://pkgx.sh | sh &> /dev/null
 	@echo "... done.\n"
 
+.PHONY: install-bundler
+install-bundler:
+	@echo "Installing bundler..."
+	@pkgx bundle config set path '.bundle'
+	@pkgx bundle install
+	@echo "... done.\n"
+
 .PHONY: fastlane
-fastlane: install-tools
-	@pkgx fastlane
+fastlane: install-pkgx install-bundler
+	@pkgx bundle exec fastlane
 
 .PHONY: archive-demo-ios
-archive-demo-ios: install-tools
-	@pkgx fastlane archive_demo_ios
+archive-demo-ios: install-pkgx install-bundler
+	@pkgx bundle exec fastlane archive_demo_ios
 
 .PHONY: archive-demo-tvos
-archive-demo-tvos: install-tools
-	@pkgx fastlane archive_demo_tvos
+archive-demo-tvos: install-pkgx install-bundler
+	@pkgx bundle exec fastlane archive_demo_tvos
 
 .PHONY: deliver-demo-nightly-ios
-deliver-demo-nightly-ios: install-tools
+deliver-demo-nightly-ios: install-pkgx
 	@echo "Delivering demo nightly build for iOS..."
 	@bundle exec fastlane deliver_demo_nightly_ios
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-nightly-tvos
-deliver-demo-nightly-tvos: install-tools
+deliver-demo-nightly-tvos: install-pkgx
 	@echo "Delivering demo nightly build for tvOS..."
 	@bundle exec fastlane deliver_demo_nightly_tvos
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-release-ios
-deliver-demo-release-ios: install-tools
+deliver-demo-release-ios: install-pkgx
 	@echo "Delivering demo release build for iOS..."
 	@bundle exec fastlane deliver_demo_release_ios
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-release-tvos
-deliver-demo-release-tvos: install-tools
+deliver-demo-release-tvos: install-pkgx
 	@echo "Delivering demo release build for tvOS..."
 	@bundle exec fastlane deliver_demo_release_tvos
 	@echo "... done.\n"
 
 .PHONY: test-streams-start
-test-streams-start: install-tools
+test-streams-start: install-pkgx
 	@echo "Starting test streams"
 	@Scripts/test-streams.sh -s
 	@echo "... done.\n"
 
 .PHONY: test-streams-stop
-test-streams-stop: install-tools
+test-streams-stop: install-pkgx
 	@echo "Stopping test streams"
 	@Scripts/test-streams.sh -k
 	@echo "... done.\n"
 
 .PHONY: test-ios
-test-ios: install-tools
+test-ios: install-pkgx
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
 	@pkgx +xcodes fastlane test_ios
@@ -66,7 +73,7 @@ test-ios: install-tools
 	@echo "... done.\n"
 
 .PHONY: test-tvos
-test-tvos: install-tools
+test-tvos: install-pkgx
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
 	@pkgx fastlane test_tvos
@@ -74,13 +81,13 @@ test-tvos: install-tools
 	@echo "... done.\n"
 
 .PHONY: check-quality
-check-quality: install-tools
+check-quality: install-pkgx
 	@echo "Checking quality..."
 	@Scripts/check-quality.sh
 	@echo "... done.\n"
 
 .PHONY: fix-quality
-fix-quality: install-tools
+fix-quality: install-pkgx
 	@echo "Fixing quality..."
 	@Scripts/fix-quality.sh
 	@echo "... done.\n"
@@ -127,7 +134,7 @@ find-dead-code:
 	@echo "... done.\n"
 
 .PHONY: doc
-doc: install-tools
+doc: install-pkgx
 	@echo "Generating documentation sets..."
 	@pkgx fastlane doc
 	@echo "... done.\n"
@@ -137,7 +144,7 @@ help:
 	@echo "The following targets are available:"
 	@echo ""
 	@echo "   all                                Default target"
-	@echo "   install-tools                      Install required tools"
+	@echo "   install-pkgx                      Install required tools"
 	@echo ""
 	@echo "   fastlane                           Run fastlane"
 	@echo ""
