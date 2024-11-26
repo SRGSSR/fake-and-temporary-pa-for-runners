@@ -12,7 +12,6 @@ fi
 
 keychain_path="$root_dir/app-signing.keychain-db"
 
-# Should we put a password?
 apple_certificate_password="6YXTQTG8JJ"
 apple_certificate="$root_dir/certificate.p12"
 
