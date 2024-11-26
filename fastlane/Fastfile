@@ -118,8 +118,8 @@ def build_and_sign_app(platform_id, configuration_id)
     output_directory: 'Binaries',
     xcargs: "-authenticationKeyIssuerID #{ENV.fetch('KEY_ISSUER_ID')} -authenticationKeyID #{ENV.fetch('KEY_ID')} " \
             "-authenticationKeyPath #{api_key_filepath} -allowProvisioningUpdates",
-    cloned_source_packages_path: 'Packages',
-    skip_package_dependencies_resolution: ENV.fetch('HAS_PACKAGES_CACHE_HIT')
+    cloned_source_packages_path: '~/Packages',
+    skip_package_dependencies_resolution: ENV['HAS_PACKAGES_CACHE_HIT'] == 'true'
   )
 end
 
@@ -200,8 +200,8 @@ def run_package_tests(platform_id, scheme_name)
     clean: true,
     fail_build: false,
     xcargs: '-testLanguage en -testRegion en_US',
-    cloned_source_packages_path: 'Packages',
-    skip_package_dependencies_resolution: ENV.fetch('HAS_PACKAGES_CACHE_HIT')
+    cloned_source_packages_path: '~/Packages',
+    skip_package_dependencies_resolution: ENV['HAS_PACKAGES_CACHE_HIT'] == 'true'
   )
   trainer(
     path: 'fastlane/test_output',

@@ -38,13 +38,17 @@ jobs:
         uses: actions/cache@v3
         id: packages-cache
         with:
-          path: packages_cache
+          path: ~/Packages
           key: ${{ runner.os }}-packages-${{ hashFiles('Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-packages-
 
       - name: Run tests
-        run: make test-${{ matrix.platform }}
+        run: |
+          echo "=================="
+          pwd
+          echo "=================="
+          make test-${{ matrix.platform }}
         env:
           HAS_PACKAGES_CACHE_HIT: >
             ${{ steps.packages-cache.outputs.cache-hit == 'true' }}
@@ -76,7 +80,7 @@ jobs:
         uses: actions/cache@v3
         id: packages-demo-cache
         with:
-          path: packages_cache
+          path: ~/Packages
           key: |
             ${{ runner.os }}-demo-packages-\
             ${{ hashFiles('Demo/**/Package.resolved') }}
@@ -85,6 +89,9 @@ jobs:
 
       - name: Archive the demo
         run: |
+          echo "=================="
+          pwd
+          echo "=================="
           make archive-demo-${{ matrix.platform }}
         env:
           HAS_PACKAGES_CACHE_HIT: |
