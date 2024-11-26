@@ -65,18 +65,20 @@ test-streams-stop: install-pkgx
 	@echo "... done.\n"
 
 .PHONY: test-ios
-test-ios: install-pkgx
+test-ios: install-pkgx install-bundler
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
-	@pkgx +xcodes fastlane test_ios
+	@pkgx xcodes
+	@pkgx bundle exec fastlane test_ios
 	@Scripts/test-streams.sh -k
 	@echo "... done.\n"
 
 .PHONY: test-tvos
-test-tvos: install-pkgx
+test-tvos: install-pkgx install-bundler
 	@echo "Running unit tests..."
 	@Scripts/test-streams.sh -s
-	@pkgx fastlane test_tvos
+	@pkgx xcodes
+	@pkgx bundle exec fastlane test_tvos
 	@Scripts/test-streams.sh -k
 	@echo "... done.\n"
 
