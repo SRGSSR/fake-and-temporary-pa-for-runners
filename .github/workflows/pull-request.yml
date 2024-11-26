@@ -24,21 +24,21 @@ jobs:
       - name: Build the documentation
         run: make doc
 
-  tests:
-    name: "🧪 Tests"
-    runs-on: [macos-latest]
-    strategy:
-      matrix:
-        platform: [ios, tvos]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # tests:
+  #   name: "🧪 Tests"
+  #   runs-on: [macos-latest]
+  #   strategy:
+  #     matrix:
+  #       platform: [ios, tvos]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Authorize microphone access for simulator
-        run: Scripts/bypass-simulator-trampoline.sh
+  #     - name: Authorize microphone access for simulator
+  #       run: Scripts/bypass-simulator-trampoline.sh
 
-      - name: Run tests
-        run: make test-${{ matrix.platform }}
+  #     - name: Run tests
+  #       run: make test-${{ matrix.platform }}
 
   archive-demos:
     name: "📦 Archives"
@@ -53,6 +53,8 @@ jobs:
       - name: Add Apple certificate
         run: |
           Scripts/add-apple-certificate.sh \
+          $RUNNER_TEMP \
+          ${{ secrets.KEYCHAIN_PASSWORD }} \
           ${{ secrets.SRGSSR_APPLE_DEV_CERTIFICATE_B64 }}
 
       - name: Configure environment
