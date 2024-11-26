@@ -29,15 +29,15 @@ archive-demo-tvos: install-pkgx install-bundler
 	@pkgx bundle exec fastlane archive_demo_tvos
 
 .PHONY: deliver-demo-nightly-ios
-deliver-demo-nightly-ios: install-pkgx
+deliver-demo-nightly-ios: install-pkgx install-bundler
 	@echo "Delivering demo nightly build for iOS..."
-	@bundle exec fastlane deliver_demo_nightly_ios
+	@pkgx +magick +rsvg-convert bundle exec fastlane deliver_demo_nightly_ios
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-nightly-tvos
-deliver-demo-nightly-tvos: install-pkgx
+deliver-demo-nightly-tvos: install-pkgx install-bundler
 	@echo "Delivering demo nightly build for tvOS..."
-	@bundle exec fastlane deliver_demo_nightly_tvos
+	@pkgx +magick +rsvg-convert bundle exec fastlane deliver_demo_nightly_tvos
 	@echo "... done.\n"
 
 .PHONY: deliver-demo-release-ios

@@ -1,0 +1,32 @@
+---
+name: Nightlies
+
+on: [push]
+
+jobs:
+  deliver-demo-nightlies:
+    name: "🌙 Nightlies"
+    runs-on: [macos-latest]
+    strategy:
+      matrix:
+        platform: [ios, tvos]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Add Apple certificate
+        run: |
+          Scripts/add-apple-certificate.sh \
+          $RUNNER_TEMP \
+          ${{ secrets.KEYCHAIN_PASSWORD }} \
+          ${{ secrets.SRGSSR_APPLE_DEV_CERTIFICATE_B64 }}
+
+      - name: Configure environment
+        run: |
+          Scripts/configure-environment.sh \
+          ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
+          ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
+
+      - name: Archive the demo
+        run: |
+          make deliver-demo-nightly-${{ matrix.platform }}
