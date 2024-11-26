@@ -4,9 +4,29 @@ name: Pull Request
 on: [push]
 
 jobs:
+  check-quality:
+    name: "🔎 Check quality"
+    runs-on: [macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run the quality check
+        run: make check-quality
+
+  build-documentation:
+    name: "📚 Build documentation"
+    runs-on: [macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build the documentation
+        run: make doc
+
   tests:
     name: "🧪 Tests"
-    runs-on: tart
+    runs-on: [macos-latest]
     strategy:
       matrix:
         platform: [ios, tvos]
@@ -19,3 +39,28 @@ jobs:
 
       - name: Run tests
         run: make test-${{ matrix.platform }}
+
+  archive-demos:
+    name: "📦 Archives"
+    runs-on: [macos-latest]
+    strategy:
+      matrix:
+        platform: [ios, tvos]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Add Apple certificate
+        run: |
+          Scripts/add-apple-certificate.sh \
+          ${{ secrets.SRGSSR_APPLE_DEV_CERTIFICATE_B64 }}
+
+      - name: Configure environment
+        run: |
+          Scripts/configure-environment.sh \
+          ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
+          ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
+
+      - name: Archive the demo
+        run: |
+          make archive-demo-${{ matrix.platform }}
