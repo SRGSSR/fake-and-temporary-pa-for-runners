@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 apple_api_key_b64="$1"
 apple_account_info_b64="$2"
 
