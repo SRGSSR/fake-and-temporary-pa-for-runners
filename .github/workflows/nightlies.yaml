@@ -1,7 +1,7 @@
 ---
 name: Nightlies
 
-on: [push]
+#on: [push]
 
 jobs:
   deliver-demo-nightlies:
