@@ -27,3 +27,5 @@ security unlock-keychain -p "$keychain_password" "$keychain_path"
 security import "$apple_certificate" -k "$keychain_path" -P "$apple_certificate_password" -A -t cert -f pkcs12
 # Authorize access to certificate private key
 security set-key-partition-list -S apple-tool:,apple: -k "$keychain_password" "$keychain_path"
+# Set the default keychain
+security list-keychain -d user -s "$keychain_path"
