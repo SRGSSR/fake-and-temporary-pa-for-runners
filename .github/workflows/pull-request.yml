@@ -39,7 +39,7 @@ jobs:
         id: packages-cache
         with:
           path: ~/Packages
-          key: ${{ runner.os }}-packages-${{ hashFiles('Package.resolved') }}
+          key: ${{ runner.os }}-packages-${{ hashFiles('**/Package.resolved') }}
           restore-keys: ${{ runner.os }}-packages-
 
       - name: Run tests
