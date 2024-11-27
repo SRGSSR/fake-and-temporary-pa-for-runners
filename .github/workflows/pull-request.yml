@@ -1,12 +1,12 @@
 ---
 name: Pull Request
 
-on: [push]
+on: pull_request
 
 jobs:
   check-quality:
     name: "🔎 Check quality"
-    runs-on: [macos-latest]
+    runs-on: macos-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
 
   build-documentation:
     name: "📚 Build documentation"
-    runs-on: [macos-latest]
+    runs-on: macos-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
 
   tests:
     name: "🧪 Tests"
-    runs-on: [macos-latest]
+    runs-on: macos-latest
     strategy:
       matrix:
         platform: [ios, tvos]
@@ -39,7 +39,7 @@ jobs:
 
   archive-demos:
     name: "📦 Archives"
-    runs-on: [macos-latest]
+    runs-on: macos-latest
     strategy:
       matrix:
         platform: [ios, tvos]
@@ -52,13 +52,18 @@ jobs:
           Scripts/add-apple-certificate.sh \
           $RUNNER_TEMP \
           ${{ secrets.KEYCHAIN_PASSWORD }} \
-          ${{ secrets.SRGSSR_APPLE_DEV_CERTIFICATE_B64 }}
+          ${{ secrets.APPLE_DEV_CERTIFICATE }} \
+          ${{ secrets.APPLE_DEV_CERTIFICATE_PASSWORD }}
 
       - name: Configure environment
         run: |
           Scripts/configure-environment.sh \
-          ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
-          ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
-
+          ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ISSUER_ID }}
+          TESTFLIGHT_GROUPS: ${{ vars.TESTFLIGHT_GROUPS }}
+      
       - name: Archive the demo
         run: make archive-demo-${{ matrix.platform }}

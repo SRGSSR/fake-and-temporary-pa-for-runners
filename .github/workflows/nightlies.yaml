@@ -1,12 +1,14 @@
 ---
 name: Nightlies
 
-#on: [push]
+on:
+  push:
+    branches: [main]
 
 jobs:
   deliver-demo-nightlies:
     name: "🌙 Nightlies"
-    runs-on: [macos-latest]
+    runs-on: macos-latest
     strategy:
       matrix:
         platform: [ios, tvos]
@@ -24,8 +26,12 @@ jobs:
       - name: Configure environment
         run: |
           Scripts/configure-environment.sh \
-          ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
-          ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
+          ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ISSUER_ID }}
+          TESTFLIGHT_GROUPS: ${{ vars.TESTFLIGHT_GROUPS }}
 
       - name: Archive the demo
         run: |

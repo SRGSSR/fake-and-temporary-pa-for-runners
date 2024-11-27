@@ -177,6 +177,8 @@ def deliver_demo_nightly(platform_id)
   build_and_sign_app(platform_id, :nightly)
   reset_git_repo(skip_clean: true)
   login_to_app_store_connect
+  # upload_app_to_testflight
+  # distribute_app_to_testers(platform_id, :nightly, build_number)
 end
 
 def deliver_demo_release(platform_id)
