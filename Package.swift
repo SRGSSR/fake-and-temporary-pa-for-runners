@@ -36,7 +36,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/comScore/Comscore-Swift-Package-Manager.git", .upToNextMinor(from: "6.14.0")),
-        .package(url: "https://github.com/CommandersAct/iOSV5.git", .upToNextMinor(from: "5.4.0")),
+        .package(url: "https://github.com/SRGSSR/commanders-act-apple.git", .upToNextMinor(from: "5.4.0")),
         .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/krzysztofzablocki/Difference.git", exact: "1.0.1"),
         .package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "13.0.0"))
@@ -47,8 +47,8 @@ let package = Package(
             dependencies: [
                 .target(name: "PillarboxPlayer"),
                 .product(name: "ComScore", package: "Comscore-Swift-Package-Manager"),
-                .product(name: "TCCore", package: "iOSV5"),
-                .product(name: "TCServerSide", package: "iOSV5")
+                .product(name: "TCCore", package: "commanders-act-apple"),
+                .product(name: "TCServerSide", package: "commanders-act-apple")
             ],
             path: "Sources/Analytics",
             resources: [
