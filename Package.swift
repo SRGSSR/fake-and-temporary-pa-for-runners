@@ -128,6 +128,42 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "AnalyticsTests",
+            dependencies: [
+                .target(name: "PillarboxAnalytics"),
+                .target(name: "PillarboxCircumspect"),
+                .target(name: "PillarboxStreams")
+            ]
+        ),
+        .testTarget(
+            name: "CircumspectTests",
+            dependencies: [
+                .target(name: "PillarboxCircumspect")
+            ]
+        ),
+        .testTarget(
+            name: "CoreTests",
+            dependencies: [
+                .target(name: "PillarboxCircumspect"),
+                .target(name: "PillarboxCore")
+            ]
+        ),
+        .testTarget(
+            name: "CoreBusinessTests",
+            dependencies: [
+                .target(name: "PillarboxCircumspect"),
+                .target(name: "PillarboxCoreBusiness")
+            ]
+        ),
+        .testTarget(
+            name: "MonitoringTests",
+            dependencies: [
+                .target(name: "PillarboxCircumspect"),
+                .target(name: "PillarboxMonitoring"),
+                .target(name: "PillarboxStreams")
+            ]
+        ),
+        .testTarget(
             name: "PlayerTests",
             dependencies: [
                 .target(name: "PillarboxCircumspect"),

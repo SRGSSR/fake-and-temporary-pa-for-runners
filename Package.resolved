@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "commanders-act-apple",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SRGSSR/commanders-act-apple.git",
+      "state" : {
+        "revision" : "e06657ceae07237a08e04ca2d34c2ec7612483b8",
+        "version" : "5.4.12"
+      }
+    },
+    {
       "identity" : "comscore-swift-package-manager",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/comScore/Comscore-Swift-Package-Manager.git",
@@ -34,15 +43,6 @@
       "state" : {
         "revision" : "02fe1111edc8318c4f8a0da96336fcbcc201f38b",
         "version" : "1.0.1"
-      }
-    },
-    {
-      "identity" : "iosv5",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CommandersAct/iOSV5.git",
-      "state" : {
-        "revision" : "24ffbad1da8467b615958be9d0dd1e92c4396699",
-        "version" : "5.4.12"
       }
     },
     {
