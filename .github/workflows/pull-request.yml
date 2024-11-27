@@ -43,6 +43,7 @@ jobs:
     strategy:
       matrix:
         platform: [ios, tvos]
+        configuration: [nightly, release]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -61,4 +62,5 @@ jobs:
           ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
 
       - name: Archive the demo
-        run: make archive-demo-${{ matrix.platform }}
+        run: |
+          make archive-demo-${{ matrix.configuration }}-${{ matrix.platform }}
