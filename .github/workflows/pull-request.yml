@@ -34,20 +34,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache packages
-        uses: irgaly/xcode-cache@v1
-        with:
-          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
-          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
-          swiftpm-cache-key: pillarbox-spm-${{ hashFiles('Package.resolved') }}
-          swiftpm-cache-restore-keys: pillarbox-spm-
-
       - name: Run tests
-        run: |
-          make test-${{ matrix.platform }}
-        env:
-          HAS_PACKAGES_CACHE_HIT: |
-            ${{ steps.packages-cache.outputs.cache-hit == 'true' }}
+        run: make test-${{ matrix.platform }}
 
   archive-demos:
     name: "📦 Archives"
@@ -72,17 +60,5 @@ jobs:
           ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
           ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
 
-      - name: Cache packages
-        uses: irgaly/xcode-cache@v1
-        with:
-          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
-          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
-          swiftpm-cache-key: pillarbox-demo-spm-${{ hashFiles('Demo/**/Package.resolved') }}
-          swiftpm-cache-restore-keys: pillarbox-demo-spm-
-
       - name: Archive the demo
-        run: |
-          make archive-demo-${{ matrix.platform }}
-        env:
-          HAS_PACKAGES_CACHE_HIT: |
-            ${{ steps.packages-demo-cache.outputs.cache-hit == 'true' }}
+        run: make archive-demo-${{ matrix.platform }}
