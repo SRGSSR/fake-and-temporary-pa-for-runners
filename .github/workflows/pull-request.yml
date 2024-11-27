@@ -34,14 +34,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cache packages
-        uses: actions/cache@v3
-        id: packages-cache
-        with:
-          path: ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-packages-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: ${{ runner.os }}-packages-
-
       - name: Run tests
         run: |
           make test-${{ matrix.platform }}
@@ -71,16 +63,6 @@ jobs:
           Scripts/configure-environment.sh \
           ${{ secrets.APP_STORE_CONNECT_API_KEY_B64 }} \
           ${{ secrets.APPLE_ACCOUNT_INFO_B64 }}
-
-      - name: Cache packages
-        uses: actions/cache@v3
-        id: packages-demo-cache
-        with:
-          path: ~/Demo/Packages
-          key: |
-            ${{ runner.os }}-demo-packages-\
-            ${{ hashFiles('Demo/**/Package.resolved') }}
-          restore-keys: ${{ runner.os }}-demo-packages-
 
       - name: Archive the demo
         run: |

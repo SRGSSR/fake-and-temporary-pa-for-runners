@@ -117,9 +117,7 @@ def build_and_sign_app(platform_id, configuration_id)
     export_team_id: ENV.fetch('TEAM_ID'),
     output_directory: 'Binaries',
     xcargs: "-authenticationKeyIssuerID #{ENV.fetch('KEY_ISSUER_ID')} -authenticationKeyID #{ENV.fetch('KEY_ID')} " \
-            "-authenticationKeyPath #{api_key_filepath} -allowProvisioningUpdates",
-    cloned_source_packages_path: '~/Demo/Packages',
-    skip_package_dependencies_resolution: ENV['HAS_PACKAGES_CACHE_HIT'] == 'true'
+            "-authenticationKeyPath #{api_key_filepath} -allowProvisioningUpdates"
   )
 end
 
@@ -199,9 +197,7 @@ def run_package_tests(platform_id, scheme_name)
     number_of_retries: 3,
     clean: true,
     fail_build: false,
-    xcargs: '-testLanguage en -testRegion en_US',
-    cloned_source_packages_path: '~/Library/Caches/org.swift.swiftpm',
-    skip_package_dependencies_resolution: ENV['HAS_PACKAGES_CACHE_HIT'] == 'true'
+    xcargs: '-testLanguage en -testRegion en_US'
   )
   trainer(
     path: 'fastlane/test_output',
