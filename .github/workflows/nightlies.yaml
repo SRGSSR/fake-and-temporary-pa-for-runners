@@ -27,12 +27,12 @@ jobs:
         run: |
           Scripts/configure-environment.sh \
           ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+
+      - name: Archive the demo
+        run: |
+          make deliver-demo-nightly-${{ matrix.platform }}
         env:
           TEAM_ID: ${{ secrets.TEAM_ID }}
           KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ISSUER_ID }}
           TESTFLIGHT_GROUPS: ${{ vars.TESTFLIGHT_GROUPS }}
-
-      - name: Archive the demo
-        run: |
-          make deliver-demo-nightly-${{ matrix.platform }}
