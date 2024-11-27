@@ -6,7 +6,7 @@ on: [push]
 jobs:
   check-quality:
     name: "🔎 Check quality"
-    runs-on: [macos-latest]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
 
   build-documentation:
     name: "📚 Build documentation"
-    runs-on: [macos-latest]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
