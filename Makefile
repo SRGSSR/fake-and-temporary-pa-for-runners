@@ -20,21 +20,13 @@ install-bundler:
 fastlane: install-pkgx install-bundler
 	@pkgx bundle exec fastlane
 
-.PHONY: archive-demo-nightly-ios
-archive-demo-nightly-ios: install-pkgx install-bundler
-	@pkgx bundle exec fastlane archive_demo_nightly_ios
+.PHONY: archive-demo-ios
+archive-demo-ios: install-pkgx install-bundler
+	@pkgx bundle exec fastlane archive_demo_ios
 
-.PHONY: archive-demo-nightly-tvos
-archive-demo-nightly-tvos: install-pkgx install-bundler
-	@pkgx bundle exec fastlane archive_demo_nightly_tvos
-
-.PHONY: archive-demo-release-ios
-archive-demo-release-ios: install-pkgx install-bundler
-	@pkgx bundle exec fastlane archive_demo_release_ios
-
-.PHONY: archive-demo-release-tvos
-archive-demo-release-tvos: install-pkgx install-bundler
-	@pkgx bundle exec fastlane archive_demo_release_tvos
+.PHONY: archive-demo-tvos
+archive-demo-tvos: install-pkgx install-bundler
+	@pkgx bundle exec fastlane archive_demo_tvos
 
 .PHONY: deliver-demo-nightly-ios
 deliver-demo-nightly-ios: install-pkgx install-bundler

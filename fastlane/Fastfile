@@ -164,13 +164,9 @@ rescue StandardError => e
   UI.important('TestFlight external delivery was skipped because a build is already in review')
 end
 
-def archive_demo_nightly(platform_id)
+def archive_demo(platform_id)
   ensure_configuration_availability
   build_and_sign_app(platform_id, :nightly)
-end
-
-def archive_demo_release(platform_id)
-  ensure_configuration_availability
   build_and_sign_app(platform_id, :release)
 end
 
@@ -227,24 +223,14 @@ platform :ios do
     reset_git_repo(skip_clean: true)
   end
 
-  desc 'Archive the iOS nightly demo app'
-  lane :archive_demo_nightly_ios do
-    archive_demo_nightly(:ios)
+  desc 'Archive the iOS demo app'
+  lane :archive_demo_ios do
+    archive_demo(:ios)
   end
 
-  desc 'Archive the iOS release demo app'
-  lane :archive_demo_release_ios do
-    archive_demo_release(:ios)
-  end
-
-  desc 'Archive the tvOS nightly demo app'
-  lane :archive_demo_nightly_tvos do
-    archive_demo_nightly(:tvos)
-  end
-
-  desc 'Archive the tvOS release demo app'
-  lane :archive_demo_release_tvos do
-    archive_demo_release(:tvos)
+  desc 'Archive the tvOS demo app'
+  lane :archive_demo_tvos do
+    archive_demo(:tvos)
   end
 
   desc 'Deliver an iOS demo app nightly build'
