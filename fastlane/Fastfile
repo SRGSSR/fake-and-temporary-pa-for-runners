@@ -200,7 +200,7 @@ def run_package_tests(platform_id, scheme_name)
     clean: true,
     fail_build: false,
     xcargs: '-testLanguage en -testRegion en_US',
-    cloned_source_packages_path: '~/Packages',
+    cloned_source_packages_path: '~/Library/Caches/org.swift.swiftpm',
     skip_package_dependencies_resolution: ENV['HAS_PACKAGES_CACHE_HIT'] == 'true'
   )
   trainer(

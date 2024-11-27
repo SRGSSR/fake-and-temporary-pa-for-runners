@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache@v3
         id: packages-cache
         with:
-          path: ~/Packages
+          path: ~/Library/Caches/org.swift.swiftpm
           key: ${{ runner.os }}-packages-${{ hashFiles('**/Package.resolved') }}
           restore-keys: ${{ runner.os }}-packages-
 
